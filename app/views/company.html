@@ -1,0 +1,92 @@
+<style type="text/css">
+    input:required:invalid,
+    input:focus:invalid {
+        background-color: rgba(255, 0, 0, 0.2);
+        background-position: right top;
+        background-repeat: no-repeat;
+    }
+
+    input:required:valid {
+        background-color: rgba(0, 255, 0, 0.2);
+        background-position: right top;
+        background-repeat: no-repeat;
+    }
+  .form-control{
+  display: block;
+  width: 30%; /* THIS */
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555; /* THIS */
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc; /* THIS */
+  border-radius: 4px; /* THIS */
+}
+</style>
+<div>
+    <h2>Companies</h2>
+    <table class="table table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Stock Label</th>
+            <th>Actions</th>
+        </tr>
+        <tr ng-repeat="company in companies" ng-include="getTemplate(company)">
+
+        </tr>
+    </table>
+   
+    <h1 margin-top="20">Add a company</h1>
+   <div>
+    <form width="50">
+        <div class="form-group">
+
+            <label for="companyName" class="control-label">Name</label>
+            
+            <input type="text" id="companyName" class="form-control" ng-model="a.name" required />
+            </div>
+     
+        <div class="form-group">
+            <label for="companyEmail" class="control-label">Email</label>
+         
+            <input type="email" id="companyEmail" class="form-control" ng-model="a.email" required />
+            
+          </div>
+     
+        <div class="form-group">
+            <label for="companyStockLabel" class="control-label">Stock Label</label>
+              
+            <input type="text" id="companyStockLabel" class="form-control" ng-model="a.stock_label" required />
+              </div>
+        </div>
+        <div class="form-group">
+             
+            <input type="button" value="Add" class="form-control" ng-click="addCompany(a)" />
+            </div>
+        </div>
+
+    </form>
+    </div>
+    <script type="text/ng-template" id="display">
+        <td>{{company.name}}</td>
+        <td>{{company.email}}</td>
+        <td>{{company.stock_label}}</td>
+        <td>
+            <input type="button" class="btn btn-primary" value="details" ng-click="companyDetails(company)" />
+            <input type="button" class="btn btn-danger" value="delete" ng-click="deleteCompany(company)" />
+            <input type="button" class="btn btn-info" value="edit" ng-click="editCompany(company)" />
+        </td>
+    </script>
+    <script type="text/ng-template" id="edit">
+        <td><input type="text" ng-model="company.name" class="form-control" /></td>
+        <td><input type="text" ng-model="company.email" class="form-control" /></td>
+        <td><input type="text" ng-model="company.stock_label" class="form-control" /></td>
+        <td>
+            <input type="button" value="save" ng-click="saveCompany(company)" />
+            <input type="button" value="cancel" ng-click="cancelEditing(company)" />
+        </td>
+    </script>
+</div>

@@ -1,0 +1,72 @@
+<style type="text/css">
+    input:required:invalid,
+    input:focus:invalid {
+        background-color: rgba(255, 0, 0, 0.2);
+        background-position: right top;
+        background-repeat: no-repeat;
+    }
+
+    input:required:valid {
+        background-color: rgba(0, 255, 0, 0.2);
+        background-position: right top;
+        background-repeat: no-repeat;
+    }
+  .form-control{
+  display: block;
+  width: 30%; /* THIS */
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555; /* THIS */
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc; /* THIS */
+  border-radius: 4px; /* THIS */
+}
+</style>
+<div>
+ <h1> {{company.name}} can be contacted at {{company.email}}</h1>
+  <h2>Models</h2>
+  <table class="table table-hover">
+    <tr>
+      <th>Title</th>
+      <th>Body Type</th>
+      <th>Price</th>
+       <th>Actions</th>
+    </tr>
+    <tr ng-repeat="model in models" ng-include="getTemplate(model)">
+    </tr>
+  </table>
+  <h2>Add a model</h2>
+  <form name="addForm">
+    <label for="modelTitle" class="control-label">Title</label>
+    <input type="text" class="form-control"  id="modelTitle" ng-model="model.title" required/>
+    <label for="modelBodyType" class="control-label">Body Type</label>
+    <input type="text" class="form-control"  id="modelBodyType" name="modelBodyType" ng-model="model.body_type" required minlength="1" valid-model />
+	<label for="modelPrice" class="control-label">Price</label>
+    <input type="float" id="modelPrice"  class="form-control" ng-model="model.price" required />
+   
+    <input type="button" class="form-control"  value="Add" ng-click="addModel(model)" />
+  <a class="btn btn-primary" role="button"href=#/companies>BACK</a>
+  </form>
+
+  <script type="text/ng-template" id="display">
+    <td>{{model.title}}</td>
+    <td>{{model.body_type}}</td>
+	  <td>{{model.price}}</td>
+    <td>
+      <input type="button" class="btn btn-danger" value="delete" ng-click="deleteModel(model)" class="btn btn-sm btn-danger"/>
+      <input type="button" class="btn btn-info" value="edit" ng-click="editModel(model)" />
+    </td>
+  </script>
+  <script type="text/ng-template" id="edit">
+    <td><input type="text" ng-model="model.title" class="form-control"/></td>
+    <td><input type="text" ng-model="model.body_type" class="form-control"/></td>
+	<td><input type="text" ng-model="model.price" class="form-control"/></td>
+    <td>
+      <input type="button" value="save" ng-click="saveModel(model)" />
+      <input type="button" value="cancel" ng-click="cancelEditing(model)" />
+    </td>
+  </script>
+</div>
